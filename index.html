@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioInfo Lab - 基因分析平台</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./common.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧬 BioInfo <span class="highlight">Lab</span></h1>
+            <p>实时 DNA 序列 GC 含量分析工具</p>
+        </header>
+        <!-- section1. 搜索栏 -->
+        <section >
+            <h4>🕒 最近搜索：</h4>
+            <div id="history-list" class="history-tags">
+                <span class="empty-hint">暂无记录</span>
+            </div>
+        </section>
+
+    <main>
+        <div id="sequence-info" >当前序列: <span id="gene-name">暂无数据</span>
+        </div>
+        <!-- section2:数据输入和上传以及从NCBI拿取数据-->
+        <section>
+            <textarea id="dna-input" placeholder="请粘贴 DNA 序列 (例如: ATGCGTA... )"></textarea>
+            <div class="button-group">
+                <button id="analyze-btn" class="primary-btn">开始本地分析</button>
+                <button id="upload-trigger" class="secondary-btn">📁 上传 FASTA/TXT</button>
+                <input type="file" id="file-input" style="display:none" accept=".fasta,.txt,.dna,.seq">
+                <button id="fetch-btn" class="secondary-btn">从 API 获取样本数据</button>
+            </div>
+        </section>
+         <!-- section3:数据分析，序列长度，GC含量以及反向互补序列-->
+        <section class="results-grid">
+            <div class="stat-card">
+                <h3>序列长度</h3>
+                <p id="len-val">0</p>
+            </div>
+            <div class="stat-card highlight">
+                 <h3>GC 含量 (%)</h3>
+                <p id="gc-val">0%</p>
+            </div>
+            <div class="stat-card" style="grid-column: span 2;">
+                <h3>反向互补序列 (5' -> 3')</h3>
+                <p id="rev-comp-val" >-</p>
+                <button id="copy-btn">复制序列</button>
+            </div>
+        </section>
+        <!-- section 4: 碱基分布放图 -->
+            <section>
+                <h3>碱基分布直方图 (A / T / C / G)</h3>
+                <div id="chart-container" class="chart-container">
+                    </div>
+                
+                <div class="canvas-header">
+                    <h3>GC 含量滑动窗口曲线图</h3>
+                    <span id="window-info">窗口: 100bp | 步长: 20bp</span>
+                </div>
+                <div class="canvas-wrapper">
+                    <canvas id="gc-canvas"></canvas>
+                </div>
+            </section>
+            <!-- section 5： Phylo Engine 总体架构 -->
+            <section class="Phylo Engine">
+                <div id="sequence-input">
+                    <button>本地输入</button>
+                    <button>上传FASTA</button>
+                    <button>从API获取样本数据</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
